@@ -1,0 +1,32 @@
+meta {
+  name: api catalog NEW + assets
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://{{BASE_URL}}/api/catalog
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT}}
+}
+
+body:json {
+  {
+    "name": "Oferta",
+    "description": "teste",
+    "price": 10.9,
+    "assetIds": [
+      "493043f9-4253-4553-a08e-81a4927f7d1a"
+    ]
+  }
+}
+
+body:multipart-form {
+  name: Oferta 1
+  description: Melhor oferta do dia
+  price: 14.99
+}

@@ -1,0 +1,23 @@
+meta {
+  name: api catalog NEW
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://{{BASE_URL}}/api/catalog
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT}}
+}
+
+body:json {
+  {
+    "name": "Oferta",
+    "description": "teste",
+    "price": 10.9
+  }
+}

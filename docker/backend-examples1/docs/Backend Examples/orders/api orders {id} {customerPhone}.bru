@@ -1,0 +1,15 @@
+meta {
+  name: api orders {id} {customerPhone}
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://{{BASE_URL}}/api/orders/9/1111
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT}}
+}

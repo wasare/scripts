@@ -1,0 +1,27 @@
+meta {
+  name: api orders NEW
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://{{BASE_URL}}/api/orders
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT}}
+}
+
+body:json {
+  {
+    "customerName": "Felix da Silva",
+    "customerPhone": "1234567890",
+    "customerAddress": "Rua Gomes Terra, 676, Centro, Caraguatatuba, SP",
+    "items": [
+       { "id": 1, "quantity": 2, "price": 44.90 },
+       { "id": 3, "quantity": 1, "price": 22.90 }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+meta {
+  name: api assets NEW
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://{{BASE_URL}}/api/assets/upload
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT}}
+}
+
+body:json {
+  {
+    "visibility": "PRIVATE"
+  }
+}
+
+body:multipart-form {
+  visibility: PUBLIC
+  file: @file(C:\Users\cg102933\Downloads\pizza51.jpg)
+}

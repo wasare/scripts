@@ -1,0 +1,83 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String?
+  is_admin  Boolean  @default(false)
+  image     String?
+  orders    Order[] // A user can have multiple orders
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  assets    Asset[]
+}
+
+model Offering {
+  id            Int             @id @default(autoincrement())
+  name          String
+  description   String
+  price         Float
+  image         String?
+  assets        Asset[]
+  enabled       Boolean         @default(true)
+  featured      Boolean         @default(false)
+  orderOffering OrderOffering[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model Order {
+  id              Int             @id @default(autoincrement())
+  totalPrice      Float
+  customerName    String
+  customerPhone   String
+  customerAddress String
+  user            User?           @relation(fields: [userId], references: [id])
+  userId          Int?
+  orderOffering   OrderOffering[]
+  status          String          @default("Aguardando")
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model OrderOffering {
+  orderId    Int
+  offeringId Int
+  quantity   Int
+  subtotal   Float
+
+  order    Order    @relation(fields: [orderId], references: [id])
+  offering Offering @relation(fields: [offeringId], references: [id])
+
+  @@id([orderId, offeringId])
+}
+
+model Asset {
+  id           String     @id @default(uuid())
+  filename     String
+  mimetype     String
+  size         Int
+  path         String
+  visibility   Visibility @default(PRIVATE)
+  uploadedAt   DateTime   @default(now())
+  uploadedBy   User?      @relation(fields: [uploadedById], references: [id])
+  uploadedById Int?
+  Offering     Offering?  @relation(fields: [offeringId], references: [id])
+  offeringId   Int?
+
+  @@index([visibility])
+}

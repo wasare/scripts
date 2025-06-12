@@ -1,0 +1,15 @@
+meta {
+  name: api assets private
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{BASE_URL}}/api/assets/private
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JWT}}
+}

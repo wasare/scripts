@@ -1,0 +1,19 @@
+meta {
+  name: api assets uploads by id
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{BASE_URL}}/api/assets/uploads/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: 4a2545b7-165a-4d96-8de7-a8173d6faee6
+}
+
+auth:bearer {
+  token: {{JWT}}
+}

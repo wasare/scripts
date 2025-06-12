@@ -1,0 +1,19 @@
+meta {
+  name: api assets {id}
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://{{BASE_URL}}/api/assets/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: 08933e7b-dbf2-4515-b91f-4665e6d7c866
+}
+
+auth:bearer {
+  token: {{JWT}}
+}
